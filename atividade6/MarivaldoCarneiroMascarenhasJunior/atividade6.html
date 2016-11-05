@@ -1,0 +1,43 @@
+<html>
+	
+	<head>
+		<title>Atividade 6</title>
+	</head>
+	   
+	<script id="base-vs" type="x-shader/x-vertex">		
+	
+		varying vec2 vUv;
+					
+		void main(void) {
+			vUv = uv;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+		}
+	</script>
+	
+	<script id="base-fs" type="x-shader/x-fragment">
+		precision mediump float;
+		
+		uniform sampler2D texture;
+		uniform sampler2D texture1;
+		uniform float fator;
+			
+		varying vec2 vUv;
+			
+		void main(void) {
+			
+			vec4 c = texture2D(texture, vUv);
+			vec4 c1 = texture2D(texture1, vUv);	
+			
+			gl_FragColor = vec4( (c1.rgb*fator)+( c.rgb*(1.0-fator) ),1.0 );
+						
+			
+		}
+	</script>
+	
+	<script type="text/javascript" src="libs/three.js"></script>
+	<script type="text/javascript" src="js/atividade6.js"></script>
+		
+	<body onload="init();">
+		<div id="WebGL-output" ></div>
+	</body>
+</html>
